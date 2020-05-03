@@ -1,0 +1,8 @@
+BasedOnStyle: Mozilla
+AccessModifierOffset: -2
+AlwaysBreakAfterDefinitionReturnType: None
+AlwaysBreakAfterReturnType: None
+ColumnLimit: 100
+ConstructorInitializerAllOnOneLineOrOnePerLine: true
+Cpp11BracedListStyle: true
+ReflowComments: false
