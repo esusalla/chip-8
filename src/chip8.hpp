@@ -1,5 +1,5 @@
-#ifndef CHIP_8
-#define CHIP_8
+#ifndef CHIP_8_HPP
+#define CHIP_8_HPP
 
 #include <array>
 #include <cstdint>

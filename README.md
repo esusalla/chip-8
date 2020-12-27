@@ -1,5 +1,5 @@
 # CHIP-8
-CHIP-8 emulator built using modern C++ (C++14) and SDL2
+CHIP-8 emulator built using C++14 and SDL2
 
 ![alt text](assets/chip8.png "Space Invaders")
 
@@ -8,7 +8,7 @@ Requires [SDL2](https://www.libsdl.org/download-2.0.php) for handling audio, inp
 
 #### Build:
 ```
-git clone https://github.com/ejsusalla/chip8
+git clone https://github.com/esusalla/chip8
 mkdir build && cd build
 cmake ..
 make

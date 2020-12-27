@@ -1,11 +1,9 @@
-#include "chip8.h"
-
 #include <chrono>
 #include <iostream>
 #include <thread>
 
-#include "chip8.h"
-#include "platform.h"
+#include "chip8.hpp"
+#include "platform.hpp"
 
 int main(int argc, char* argv[])
 {
