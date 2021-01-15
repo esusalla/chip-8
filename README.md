@@ -8,7 +8,7 @@ Requires [SDL2](https://www.libsdl.org/download-2.0.php) for handling audio, inp
 
 #### Build:
 ```
-git clone https://github.com/esusalla/chip8
+git clone https://github.com/esusalla/chip-8
 mkdir build && cd build
 cmake ..
 make
