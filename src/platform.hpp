@@ -1,15 +1,14 @@
 #ifndef PLATFORM_HPP
 #define PLATFORM_HPP
 
+#include <SDL2/SDL.h>
+
 #include <array>
 #include <cstdint>
 #include <unordered_map>
 #include <utility>
 
-#include <SDL2/SDL.h>
-
-class Platform
-{
+class Platform {
 public:
     Platform(std::pair<std::uint8_t, std::uint8_t> view_dimensions);
     ~Platform();
@@ -19,8 +18,8 @@ public:
     void play_audio();
 
 private:
-    static const std::unordered_map<SDL_Keycode, std::uint8_t> keymap; // Key press to keypad map
-    static const std::uint8_t scale = 20; // Screen pixels per internal pixel
+    static const std::unordered_map<SDL_Keycode, std::uint8_t> keymap;  // Key press to keypad map
+    static const std::uint8_t scale = 20;  // Screen pixels per internal pixel
 
     const std::uint8_t view_width;
     const std::uint8_t view_height;
@@ -40,4 +39,4 @@ private:
     SDL_AudioDeviceID audio_device;
 };
 
-#endif // PLATFORM_H
+#endif  // PLATFORM_H

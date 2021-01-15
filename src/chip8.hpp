@@ -5,41 +5,40 @@
 #include <cstdint>
 #include <utility>
 
-class Chip8
-{
+class Chip8 {
 public:
     Chip8(const char* game);
 
     // Return internal view dimensions for platform window
-    inline auto get_view_dimensions() const { return std::make_pair(view_width, view_height); }
+    static inline auto get_view_dimensions() { return std::make_pair(view_width, view_height); }
     // Return writable keypad for platform input
     inline auto& get_keypad() { return keypad; }
     // Return raw pixels for platform graphics
-    inline const auto get_pixels() const { return framebuffer.data(); }
+    inline auto get_pixels() const { return framebuffer.data(); }
     // Return sound timer for platform audio
-    inline const auto get_sound_timer() const { return ST; }
+    inline auto get_sound_timer() const { return ST; }
 
     void emulate_cycle();
     void decrement_timers();
 
 private:
-    static const std::array<std::uint8_t, 80> font_data; // Hexadecimal font sprite data
-    static const std::uint16_t program_start = 512;      // Memory address where program is loaded
-    static const std::uint8_t view_width = 64;           // Internal graphics width
-    static const std::uint8_t view_height = 32;          // Internal graphics height
+    static const std::array<std::uint8_t, 80> font_data;  // Hexadecimal font sprite data
+    static const std::uint16_t program_start = 512;       // Memory address where program is loaded
+    static const std::uint8_t view_width = 64;            // Internal graphics width
+    static const std::uint8_t view_height = 32;           // Internal graphics height
 
-    std::array<std::uint8_t, 16> keypad;                            // Internal input
-    std::array<std::uint8_t, view_width * view_height> framebuffer; // Internal graphics
+    std::array<std::uint8_t, 16> keypad;                             // Internal input
+    std::array<std::uint8_t, view_width * view_height> framebuffer;  // Internal graphics
 
-    std::array<std::uint8_t, 4096> memory; // Address space for both code and data
-    std::array<std::uint8_t, 16> V;        // General purpose registers
-    std::array<std::uint16_t, 16> stack;   // Subroutine address stack
+    std::array<std::uint8_t, 4096> memory;  // Address space for both code and data
+    std::array<std::uint8_t, 16> V;         // General purpose registers
+    std::array<std::uint16_t, 16> stack;    // Subroutine address stack
 
-    std::uint16_t PC; // Program counter
-    std::uint16_t I;  // Address register
-    std::uint8_t SP;  // Stack pointer
-    std::uint8_t DT;  // Delay timer
-    std::uint8_t ST;  // Sound timer
+    std::uint16_t PC;  // Program counter
+    std::uint16_t I;   // Address register
+    std::uint8_t SP;   // Stack pointer
+    std::uint8_t DT;   // Delay timer
+    std::uint8_t ST;   // Sound timer
 
     // Current opcode and helpers
     std::uint16_t opcode;
@@ -49,4 +48,4 @@ private:
     inline std::uint16_t NNN() const { return opcode & 0x0FFF; }
 };
 
-#endif // CHIP_8
+#endif  // CHIP_8

@@ -7,28 +7,27 @@
 #include <iostream>
 
 const std::array<std::uint8_t, 80> Chip8::font_data = {
-  0xF0, 0x90, 0x90, 0x90, 0xF0, // 0
-  0x20, 0x60, 0x20, 0x20, 0x70, // 1
-  0xF0, 0x10, 0xF0, 0x80, 0xF0, // 2
-  0xF0, 0x10, 0xF0, 0x10, 0xF0, // 3
-  0x90, 0x90, 0xF0, 0x10, 0x10, // 4
-  0xF0, 0x80, 0xF0, 0x10, 0xF0, // 5
-  0xF0, 0x80, 0xF0, 0x90, 0xF0, // 6
-  0xF0, 0x10, 0x20, 0x40, 0x40, // 7
-  0xF0, 0x90, 0xF0, 0x90, 0xF0, // 8
-  0xF0, 0x90, 0xF0, 0x10, 0xF0, // 9
-  0xF0, 0x90, 0xF0, 0x90, 0x90, // A
-  0xE0, 0x90, 0xE0, 0x90, 0xE0, // B
-  0xF0, 0x80, 0x80, 0x80, 0xF0, // C
-  0xE0, 0x90, 0x90, 0x90, 0xE0, // D
-  0xF0, 0x80, 0xF0, 0x80, 0xF0, // E
-  0xF0, 0x80, 0xF0, 0x80, 0x80  // F
+    0xF0, 0x90, 0x90, 0x90, 0xF0,  // 0
+    0x20, 0x60, 0x20, 0x20, 0x70,  // 1
+    0xF0, 0x10, 0xF0, 0x80, 0xF0,  // 2
+    0xF0, 0x10, 0xF0, 0x10, 0xF0,  // 3
+    0x90, 0x90, 0xF0, 0x10, 0x10,  // 4
+    0xF0, 0x80, 0xF0, 0x10, 0xF0,  // 5
+    0xF0, 0x80, 0xF0, 0x90, 0xF0,  // 6
+    0xF0, 0x10, 0x20, 0x40, 0x40,  // 7
+    0xF0, 0x90, 0xF0, 0x90, 0xF0,  // 8
+    0xF0, 0x90, 0xF0, 0x10, 0xF0,  // 9
+    0xF0, 0x90, 0xF0, 0x90, 0x90,  // A
+    0xE0, 0x90, 0xE0, 0x90, 0xE0,  // B
+    0xF0, 0x80, 0x80, 0x80, 0xF0,  // C
+    0xE0, 0x90, 0x90, 0x90, 0xE0,  // D
+    0xF0, 0x80, 0xF0, 0x80, 0xF0,  // E
+    0xF0, 0x80, 0xF0, 0x80, 0x80   // F
 };
-const std::uint8_t Chip8::view_width;  // Internal graphics width
-const std::uint8_t Chip8::view_height; // Internal graphics height
+const std::uint8_t Chip8::view_width;   // Internal graphics width
+const std::uint8_t Chip8::view_height;  // Internal graphics height
 
-Chip8::Chip8(const char* game) : PC{program_start}, I{0}, SP{0}, DT{0}, ST{0}, opcode{0}
-{
+Chip8::Chip8(const char* game) : PC{program_start}, I{0}, SP{0}, DT{0}, ST{0}, opcode{0} {
     // Clear input and graphics
     keypad.fill(0);
     framebuffer.fill(0);
@@ -39,9 +38,7 @@ Chip8::Chip8(const char* game) : PC{program_start}, I{0}, SP{0}, DT{0}, ST{0}, o
     stack.fill(0);
 
     // Load font data into start of memory
-    for (int i = 0; i < font_data.size(); ++i) {
-        memory[i] = font_data[i];
-    }
+    for (int i = 0; i < font_data.size(); ++i) { memory[i] = font_data[i]; }
 
     // Open game file
     std::ifstream file(game, std::ios::in | std::ios::binary | std::ios::ate);
@@ -60,17 +57,14 @@ Chip8::Chip8(const char* game) : PC{program_start}, I{0}, SP{0}, DT{0}, ST{0}, o
     auto i = 0;
     std::uint8_t byte;
     file.seekg(0, std::ios::beg);
-    while (file >> std::noskipws >> byte) {
-        memory[program_start + i++] = byte;
-    }
+    while (file >> std::noskipws >> byte) { memory[program_start + i++] = byte; }
     file.close();
 
     // Pre-C++11 style randomness
     std::srand(std::time(0));
 }
 
-void Chip8::emulate_cycle()
-{
+void Chip8::emulate_cycle() {
     // Get current opcode
     opcode = memory[PC] << 8 | memory[PC + 1];
 
@@ -291,12 +285,12 @@ void Chip8::emulate_cycle()
                 auto byte = memory[I + row];
 
                 // If the sprite goes below the bottom of the screen, clip it and stop drawing
-                if ((y + row) >= view_height) break;
+                if ((y + row) >= view_height) { break; }
 
                 // Iterate through bits in sprite byte
                 for (int col = 0; col < 8; ++col) {
                     // If the sprite goes off the right side of the screen, clip it and stop drawing
-                    if ((x + col) >= view_width) break;
+                    if ((x + col) >= view_width) { break; }
 
                     // If the bit is set, xor the corresponding pixel in the framebuffer
                     if (byte & (1 << (7 - col))) {
@@ -304,7 +298,7 @@ void Chip8::emulate_cycle()
                         auto pixel = (y + row) * view_width + (x + col);
 
                         // Check for collision and set carry register if detected
-                        if (framebuffer[pixel]) V[0xF] = 1;
+                        if (framebuffer[pixel]) { V[0xF] = 1; }
                         framebuffer[pixel] ^= 0xFF;
                     }
                 }
@@ -364,7 +358,7 @@ void Chip8::emulate_cycle()
                     }
 
                     // If a key was pressed, increment PC to move to next instruction
-                    if (pressed) PC += 2;
+                    if (pressed) { PC += 2; }
                     break;
                 }
 
@@ -400,9 +394,9 @@ void Chip8::emulate_cycle()
                 // FX33 - LD B, VX - Store BCD representation of VX in memory location I, I + 1, and I + 2
                 case 0x033: {
                     const auto vx = V[X()];
-                    memory[I] = vx / 100;            // Isolate hundreds
-                    memory[I + 1] = (vx % 100) / 10; // Isolate tens
-                    memory[I + 2] = (vx % 10);       // Isolate ones
+                    memory[I] = vx / 100;             // Isolate hundreds
+                    memory[I + 1] = (vx % 100) / 10;  // Isolate tens
+                    memory[I + 2] = (vx % 10);        // Isolate ones
                     PC += 2;
                     break;
                 }
@@ -444,8 +438,7 @@ void Chip8::emulate_cycle()
     }
 }
 
-void Chip8::decrement_timers()
-{
-    if (DT > 0) --DT;
-    if (ST > 0) --ST;
+void Chip8::decrement_timers() {
+    if (DT > 0) { --DT; }
+    if (ST > 0) { --ST; }
 }
