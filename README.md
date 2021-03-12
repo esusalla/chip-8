@@ -3,6 +3,8 @@ CHIP-8 emulator built using C++14 and SDL2
 
 ![alt text](assets/chip8.png "Space Invaders")
 
+This project builds a small emulator that runs programs (mostly video games) written in the CHIP-8 interpreted programming language initially used on 8-bit microcomputers in the mid-1970s.
+
 ## Installation
 Requires [SDL2](https://www.libsdl.org/download-2.0.php) for handling audio, input and graphics. Uses CMake for build configuration.
 
